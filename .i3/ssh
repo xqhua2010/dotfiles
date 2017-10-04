@@ -1,0 +1,5 @@
+#!/bin/sh
+read name < unssh
+echo $name
+cat unssh | ssh -D 7070 -p443 -i /home/xqh/.ssh/id_rsa -qfnN xqhua2010@lamc03.unssh.com
+echo "OK"

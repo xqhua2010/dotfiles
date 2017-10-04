@@ -1,0 +1,41 @@
+#!/bin/sh
+
+#Set terminal
+TERMINAL=urxvtc
+#Merge Xresources
+xrdb -merge ~/.Xresources &
+
+#Set wallpaper
+#feh --bg-scale ""
+
+#Start terminal daemon
+urxvtd -q -f -o &
+
+#Create scratchpad
+urxvtc -name scratchpad -e zsh
+
+#Set background
+#feh --bg-scale "/usr/share/backgrounds/Mr._Tau_and_The_Tree_-_by_TJ.jpg"&
+
+#Disable beeps
+xset -b &
+
+#Enable screen saver
+xset s activate &
+
+#Refresh
+xrefresh &
+
+#Set workspace 5 layout
+#i3-msg workspace 5
+#i3-msg layout tabbed
+
+#Start terminal
+i3-msg workspace 1
+#urxvtc -e tmux
+urxvtc -e zsh
+#i3-msg split v
+#urxvtc -e zsh
+
+#Exit
+exit 0
