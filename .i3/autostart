@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #Set terminal
-TERMINAL=urxvtc
+#TERMINAL=urxvtc
 #Merge Xresources
 xrdb -merge ~/.Xresources &
 
@@ -9,10 +9,10 @@ xrdb -merge ~/.Xresources &
 #feh --bg-scale ""
 
 #Start terminal daemon
-urxvtd -q -f -o &
+#urxvtd -q -f -o &
 
 #Create scratchpad
-urxvtc -name scratchpad -e zsh
+#urxvtc -name scratchpad -e zsh
 
 #Set background
 #feh --bg-scale "/usr/share/backgrounds/Mr._Tau_and_The_Tree_-_by_TJ.jpg"&
@@ -31,9 +31,10 @@ xrefresh &
 #i3-msg layout tabbed
 
 #Start terminal
-i3-msg workspace 1
+i3-msg workspace 2
+#xfce4-terminal
 #urxvtc -e tmux
-urxvtc -e zsh
+#urxvtc -e zsh
 #i3-msg split v
 #urxvtc -e zsh
 

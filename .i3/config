@@ -18,19 +18,19 @@ set $mod Mod4
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
-font pango:wqy-microhei Sans Mono 8
+font pango:Noto Sans Mono 9
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt -e zsh
+bindsym $mod+Return exec xfce4-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec rofi -show run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -165,11 +165,25 @@ bindsym Control+$mod+l exec --no-startup-id i3lock -i ~/Mountains_by_JamesPickle
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+	font pango:MesloLGS Nerd Font 10
 	position bottom
 	mode hide
 	modifier $mod
-#        status_command i3status
+	output HDMI-0
+	tray_output HDMI-0
+    status_command /store/i3status-rust/target/release/i3status-rs ~/.i3/status.toml
+	colors {
+            separator #666666
+            background #222222
+            statusline #dddddd
+            focused_workspace #0088CC #0088CC #ffffff
+            active_workspace #333333 #333333 #ffffff
+            inactive_workspace #333333 #333333 #888888
+            urgent_workspace #2f343a #900000 #ffffff
+    }
 }
+
+# $i3-theme-window
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
@@ -177,38 +191,39 @@ for_window [window_role="task_dialog"] floating enable
 for_window [class="mplayer2"] floating enable
 for_window [class="MPlayer"] floating enable
 for_window [class="mpv"] floating enable
-for_window [class="Chromium-browser"] floating enable
+#for_window [class="Chromium-browser"] floating enable
 for_window [class="Goldendict"] floating enable
 for_window [class="VirtualBox"] floating enable
 for_window [class="Sublime_text"] floating enable
-for_window [class="^URxvt$" instance="scratchpad"] floating enable; move scratchpad
+#for_window [class="^URxvt$" instance="scratchpad"] floating enable; move scratchpad
 #assign [class="^Chromium-browser$"] 2
 assign [class="^Firefox$"] 2
-assign [class="^Vmplayer$"] 4
+assign [class="^Vmplayer$"] 9
 #assign [class="^Rox$"] 3
 assign [class="^Pcmanfm$"] 3
 assign [class="^Zathura$"] 5
 
-#workspace 1 output HDMI-0
-#workspace 2 output HDMI-2
-#workspace 3 output HDMI-2
-#workspace 4 output HDMI-2
-#workspace 5 output HDMI-0
-#workspace 6 output HDMI-0
-#workspace 7 output HDMI-2
-exec python /opt/powerline/powerline/bindings/lemonbar/powerline-lemonbar.py --i3 -b
+workspace 1 output HDMI-0
+workspace 2 output HDMI-0
+workspace 3 output HDMI-0
+workspace 4 output HDMI-0
+workspace 5 output HDMI-0
+workspace 6 output HDMI-2
+workspace 7 output HDMI-2
+workspace 8 output HDMI-2
+workspace 9 output HDMI-2
+workspace 0 output HDMI-2
 exec --no-startup-id ~/.i3/autostart
-exec urxvt -e tmux
 exec /usr/bin/nm-applet
+exec /usr/bin/guake
 #exec /usr/bin/parcellite
-#exec /usr/bin/fcitx-qimpanel
+#exec /usr/bin/pulseaudio --start --log-target=syslog 
 exec /usr/bin/firefox
 exec /usr/bin/fcitx
-#exec /usr/bin/chromium-browser
 #exec /usr/bin/virtualbox --startvm win7\ 32
-#exec --no-startup-id /usr/bin/rox-filer
-exec --no-startup-id /usr/bin/pcmanfm
+exec /usr/bin/pcmanfm
 exec --no-startup-id xset dpms 600
-exec --no-startup-id /usr/bin/goldendict
-#exec --no-startup-id /usr/bin/redshift-gtk
-exec /usr/bin/variety
+exec /usr/bin/goldendict
+#exec --no-startup-id /usr/bin/variety
+exec /usr/bin/mictray
+exec --no-startup-id /usr/bin/feh --bg-scale /store/evening-2560-1600.png

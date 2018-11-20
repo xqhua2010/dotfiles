@@ -2,12 +2,16 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+#export ZSH=$HOME/.oh-my-zsh
+
+bindkey -v
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+if [[ $TERM =~ .*256colors ]]; then
+	ZSH_THEME="agnoster"
+fi
 
 DEFAULT_USER=xqh
 
@@ -31,7 +35,7 @@ DEFAULT_USER=xqh
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -53,13 +57,54 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git wd zsh-navigation-tools colored-man-pages colorize compleat copydir copyfile cp history tmux)
+#plugins=(git wd zsh-navigation-tools colored-man-pages colorize compleat copydir copyfile cp history tmux)
 
-source $ZSH/oh-my-zsh.sh
+#source $ZSH/oh-my-zsh.sh
 
 # User configuration
+source ~/antigen.zsh
 
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle vi-mode
+antigen bundle extract
+antigen bundle git
+antigen bundle pip
+antigen bundle python
+antigen bundle virtualenv
+antigen bundle command-not-found
+antigen bundle wd
+antigen bundle zsh-navigation-tools
+antigen bundle colored-man-pages
+antigen bundle colorize
+antigen bundle copydir
+antigen bundle copyfile
+antigen bundle cp
+antigen bundle sudo
+antigen bundle tmux
+antigen bundle pipenv
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle joel-porquet/zsh-dircolors-solarized.git
+
+# Load the theme.
+antigen theme agnoster
+
+# Tell Antigen that you're done.
+antigen apply
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=13'
 # export MANPATH="/usr/local/man:$MANPATH"
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64\ ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+PATH="$PATH:/usr/lib/go-1.9:/usr/lib/go-1.9/bin:/store/android-sdk-linux/platform-tools:/usr/local/cuda-9.0/bin"
+JAVA_HOME="/usr/lib/jdk1.8.0_112/"
+javaHome="/usr/lib/jdk1.8.0_112/"
+export JAVA_HOME javaHome PATH LD_LIBRARY_PATH
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -83,12 +128,17 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vultr='ssh xqh@45.32.27.211 -i ~/.ssh/xqh_rsa'
+alias zshconfig="vim ~/.zshrc"
+#alias ohmyzsh="vim ~/.oh-my-zsh"
+alias ls='ls -a --color=auto'
+alias ll='ls -alF --color=auto'
+alias vultr='ssh xqh@149.28.112.42 -p 222 -i ~/.ssh/xqh_rsa'
+
+alias -s log="less -MN"
 
 # exercism cli command completion
-if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
-	  . ~/.config/exercism/exercism_completion.zsh
-fi
+alias vultrfs='sshfs xqh@149.28.112.42:/home/xqh/ /media/xqh/vultr -C -p 222 -o IdentityFile=~/.ssh/xqh_rsa'
+alias mgtv='you-get --format=hd -p mpv'
 
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias zeal='zeal -stylesheet=/store/style.qss'
