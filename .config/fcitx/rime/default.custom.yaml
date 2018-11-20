@@ -1,0 +1,7 @@
+patch:
+  "menu/page_size": 9
+  schema_list:
+    - schema: double_pinyin_flypy
+    - schema: luna_pinyin_simp
+    - schema: emoji
+    
